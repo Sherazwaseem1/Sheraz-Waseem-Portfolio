@@ -1,15 +1,21 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useRef, useEffect, useState, useMemo } from "react"
-import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { Points, PointMaterial } from "@react-three/drei"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+import { useRef, useEffect, useState, useMemo } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Points, PointMaterial } from "@react-three/drei";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Github,
   Linkedin,
@@ -29,75 +35,75 @@ import {
   Monitor,
   Menu,
   X,
-} from "lucide-react"
+} from "lucide-react";
+import * as THREE from "three";
 
 // Custom hook for typing animation with role switching
 function useTypewriter(texts: string[], speed = 100) {
-  const [displayText, setDisplayText] = useState("")
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [currentTextIndex, setCurrentTextIndex] = useState(0)
-  const [showCursor, setShowCursor] = useState(true)
-  const [isDeleting, setIsDeleting] = useState(false)
+  const [displayText, setDisplayText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [showCursor, setShowCursor] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const currentText = texts[currentTextIndex]
+    const currentText = texts[currentTextIndex];
 
     if (!isDeleting && currentIndex < currentText.length) {
       const timeout = setTimeout(() => {
-        setDisplayText((prev) => prev + currentText[currentIndex])
-        setCurrentIndex((prev) => prev + 1)
-      }, speed)
-      return () => clearTimeout(timeout)
+        setDisplayText((prev) => prev + currentText[currentIndex]);
+        setCurrentIndex((prev) => prev + 1);
+      }, speed);
+      return () => clearTimeout(timeout);
     } else if (!isDeleting && currentIndex === currentText.length) {
       const timeout = setTimeout(() => {
-        setIsDeleting(true)
-      }, 2000)
-      return () => clearTimeout(timeout)
+        setIsDeleting(true);
+      }, 2000);
+      return () => clearTimeout(timeout);
     } else if (isDeleting && currentIndex > 0) {
       const timeout = setTimeout(() => {
-        setDisplayText((prev) => prev.slice(0, -1))
-        setCurrentIndex((prev) => prev - 1)
-      }, speed / 2)
-      return () => clearTimeout(timeout)
+        setDisplayText((prev) => prev.slice(0, -1));
+        setCurrentIndex((prev) => prev - 1);
+      }, speed / 2);
+      return () => clearTimeout(timeout);
     } else if (isDeleting && currentIndex === 0) {
-      setIsDeleting(false)
-      setCurrentTextIndex((prev) => (prev + 1) % texts.length)
+      setIsDeleting(false);
+      setCurrentTextIndex((prev) => (prev + 1) % texts.length);
     }
-  }, [currentIndex, currentTextIndex, isDeleting, texts, speed])
+  }, [currentIndex, currentTextIndex, isDeleting, texts, speed]);
 
   useEffect(() => {
     const cursorInterval = setInterval(() => {
-      setShowCursor((prev) => !prev)
-    }, 500)
+      setShowCursor((prev) => !prev);
+    }, 500);
 
-    return () => clearInterval(cursorInterval)
-  }, [])
+    return () => clearInterval(cursorInterval);
+  }, []);
 
-  return { displayText, showCursor }
+  return { displayText, showCursor };
 }
 
-// Global stars background component
 function GlobalStarsBackground() {
-  const mesh = useRef()
+  const mesh = useRef<THREE.Points>(null);
 
   const particles = useMemo(() => {
-    const temp = []
+    const temp = [];
     for (let i = 0; i < 3000; i++) {
-      const x = (Math.random() - 0.5) * 50
-      const y = (Math.random() - 0.5) * 50
-      const z = (Math.random() - 0.5) * 50
-      temp.push(x, y, z)
+      const x = (Math.random() - 0.5) * 50;
+      const y = (Math.random() - 0.5) * 50;
+      const z = (Math.random() - 0.5) * 50;
+      temp.push(x, y, z);
     }
-    return new Float32Array(temp)
-  }, [])
+    return new Float32Array(temp);
+  }, []);
 
   useFrame((state) => {
-    const time = state.clock.getElapsedTime()
+    const time = state.clock.getElapsedTime();
     if (mesh.current) {
-      mesh.current.rotation.x = time * 0.01
-      mesh.current.rotation.y = time * 0.005
+      mesh.current.rotation.x = time * 0.01;
+      mesh.current.rotation.y = time * 0.005;
     }
-  })
+  });
 
   return (
     <Points ref={mesh} positions={particles} stride={3} frustumCulled={false}>
@@ -111,64 +117,88 @@ function GlobalStarsBackground() {
         blending={2}
       />
     </Points>
-  )
+  );
 }
 
 export default function Portfolio() {
-  const [scrollY, setScrollY] = useState(0)
-  const [activeSection, setActiveSection] = useState("home")
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" })
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { displayText, showCursor } = useTypewriter(["Software Engineer", "AI/ML Engineer"], 150)
+  const [scrollY, setScrollY] = useState(0);
+  const [activeSection, setActiveSection] = useState("home");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { displayText, showCursor } = useTypewriter(
+    ["Software Engineer", "AI/ML Engineer"],
+    150
+  );
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY)
+      setScrollY(window.scrollY);
 
       // Update active section based on scroll position
-      const sections = ["home", "about", "experience", "skills", "projects", "contact"]
+      const sections = [
+        "home",
+        "about",
+        "experience",
+        "skills",
+        "projects",
+        "contact",
+      ];
       const currentSection = sections.find((section) => {
-        const element = document.getElementById(section)
+        const element = document.getElementById(section);
         if (element) {
-          const rect = element.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom >= 100
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
         }
-        return false
-      })
-      if (currentSection) setActiveSection(currentSection)
-    }
+        return false;
+      });
+      if (currentSection) setActiveSection(currentSection);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
+    const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({
         behavior: "smooth",
         block: "start",
         inline: "nearest",
-      })
+      });
     }
-    setMobileMenuOpen(false)
-  }
+    setMobileMenuOpen(false);
+  };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleEmailSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`)
-    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)
-    window.open(`mailto:your.email@example.com?subject=${subject}&body=${body}`)
-  }
+    e.preventDefault();
+    const subject = encodeURIComponent(
+      `Portfolio Contact from ${formData.name}`
+    );
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    );
+    window.open(
+      `mailto:your.email@example.com?subject=${subject}&body=${body}`
+    );
+  };
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent("Hi! I'm interested in discussing a project with you.")
-    window.open(`https://wa.me/1234567890?text=${message}`, "_blank")
-  }
+    const message = encodeURIComponent(
+      "Hi! I'm interested in discussing a project with you."
+    );
+    window.open(`https://wa.me/1234567890?text=${message}`, "_blank");
+  };
 
   const navigationItems = [
     { id: "home", label: "Home" },
@@ -177,7 +207,7 @@ export default function Portfolio() {
     { id: "skills", label: "Skills" },
     { id: "projects", label: "Projects" },
     { id: "contact", label: "Contact" },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-black relative">
@@ -204,10 +234,10 @@ export default function Portfolio() {
               {navigationItems.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`relative text-white hover:text-indigo-400 transition-all duration-500 transform hover:scale-110 ${
+                  className={`no-focus-outline px-2 py-2 text-white hover:text-indigo-400 ${
                     activeSection === item.id ? "text-indigo-400" : ""
                   }`}
+                  onClick={() => scrollToSection(item.id)}
                 >
                   {item.label}
                 </button>
@@ -219,7 +249,11 @@ export default function Portfolio() {
               className="md:hidden text-white hover:text-indigo-400 transition-colors duration-300"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
 
@@ -245,7 +279,10 @@ export default function Portfolio() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section
+        id="home"
+        className="relative h-screen flex items-center justify-center overflow-hidden"
+      >
         <div className="absolute inset-0 z-10">
           <Canvas camera={{ position: [0, 0, 1] }}>
             <HeroParticles />
@@ -254,15 +291,17 @@ export default function Portfolio() {
         </div>
         <div className="relative z-20 text-center text-white px-4 sm:px-6">
           <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-indigo-400 via-violet-400 to-white bg-clip-text text-transparent animate-fade-in drop-shadow-2xl">
-            John Doe
+            Sheraz Waseem
           </h1>
           <div className="text-xl sm:text-2xl md:text-3xl mb-6 sm:mb-8 bg-gradient-to-r from-violet-400 via-indigo-400 to-white bg-clip-text text-transparent min-h-[2.5rem] sm:min-h-[3rem] flex items-center justify-center">
             {displayText}
-            {showCursor && <span className="animate-pulse text-indigo-400 ml-1">|</span>}
+            {showCursor && (
+              <span className="animate-pulse text-indigo-400 ml-1">|</span>
+            )}
           </div>
           <p className="text-base sm:text-lg md:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto text-gray-300 animate-slide-up-delay px-4">
-            Passionate about creating innovative solutions and building amazing user experiences with cutting-edge AI
-            technology
+            Passionate about creating innovative solutions and building amazing
+            user experiences with cutting-edge AI technology
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-bounce-in px-4">
             <Button
@@ -283,7 +322,10 @@ export default function Portfolio() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="relative py-16 sm:py-20 px-4 sm:px-6 overflow-hidden">
+      <section
+        id="about"
+        className="relative py-16 sm:py-20 px-4 sm:px-6 overflow-hidden"
+      >
         <div className="absolute inset-0 z-10">
           <Canvas camera={{ position: [0, 0, 5] }}>
             <AboutBackground />
@@ -305,13 +347,16 @@ export default function Portfolio() {
             </div>
             <div className="text-gray-300 space-y-4 sm:space-y-6 order-1 md:order-2">
               <p className="text-base sm:text-lg leading-relaxed transform hover:translate-x-2 transition-all duration-500">
-                I'm a passionate software engineer and AI/ML specialist with 5+ years of experience building scalable
-                web applications and intelligent systems. I love turning complex problems into simple, beautiful
-                solutions.
+                I'm a passionate software engineer and AI/ML specialist with 5+
+                years of experience building scalable web applications and
+                intelligent systems. I love turning complex problems into
+                simple, beautiful solutions.
               </p>
               <p className="text-base sm:text-lg leading-relaxed transform hover:translate-x-2 transition-all duration-500">
-                When I'm not coding, you can find me exploring new AI technologies, contributing to open source
-                projects, or sharing knowledge with the developer community about machine learning and web development.
+                When I'm not coding, you can find me exploring new AI
+                technologies, contributing to open source projects, or sharing
+                knowledge with the developer community about machine learning
+                and web development.
               </p>
               <div className="flex gap-4 pt-4 justify-center md:justify-start">
                 <Button
@@ -342,7 +387,10 @@ export default function Portfolio() {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="relative py-16 sm:py-20 px-4 sm:px-6 bg-gray-900/20">
+      <section
+        id="experience"
+        className="relative py-16 sm:py-20 px-4 sm:px-6 bg-gray-900/20"
+      >
         <div className="relative z-20 container mx-auto max-w-4xl">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 bg-gradient-to-r from-purple-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent">
             Experience
@@ -353,28 +401,56 @@ export default function Portfolio() {
               company="TechCorp Inc."
               period="2022 - Present"
               description="Lead development of AI-powered applications serving 1M+ users. Built machine learning pipelines and deployed models that improved user engagement by 40%. Mentored junior developers in AI/ML best practices."
-              technologies={["Python", "TensorFlow", "PyTorch", "AWS", "Docker", "Kubernetes"]}
+              technologies={[
+                "Python",
+                "TensorFlow",
+                "PyTorch",
+                "AWS",
+                "Docker",
+                "Kubernetes",
+              ]}
             />
             <ExperienceCard
               title="Full Stack Developer & ML Engineer"
               company="StartupXYZ"
               period="2020 - 2022"
               description="Built end-to-end web applications with integrated ML features. Developed recommendation systems and natural language processing solutions. Collaborated with data science team to deploy ML models in production."
-              technologies={["React", "Node.js", "Python", "scikit-learn", "PostgreSQL", "Redis"]}
+              technologies={[
+                "React",
+                "Node.js",
+                "Python",
+                "scikit-learn",
+                "PostgreSQL",
+                "Redis",
+              ]}
             />
             <ExperienceCard
               title="Frontend Developer"
               company="Digital Agency"
               period="2019 - 2020"
               description="Developed responsive websites and web applications for various clients. Focused on performance optimization and user experience. Started exploring machine learning applications in web development."
-              technologies={["JavaScript", "React", "Vue.js", "SASS", "Webpack", "Git"]}
+              technologies={[
+                "JavaScript",
+                "React",
+                "Vue.js",
+                "SASS",
+                "Webpack",
+                "Git",
+              ]}
             />
             <ExperienceCard
               title="Junior Developer"
               company="Local Tech Company"
               period="2018 - 2019"
               description="Started my career working on internal tools and learning best practices. Contributed to bug fixes and feature implementations while building foundation in both web development and data science."
-              technologies={["HTML", "CSS", "JavaScript", "PHP", "MySQL", "Python"]}
+              technologies={[
+                "HTML",
+                "CSS",
+                "JavaScript",
+                "PHP",
+                "MySQL",
+                "Python",
+              ]}
             />
           </div>
         </div>
@@ -497,7 +573,10 @@ export default function Portfolio() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="relative py-16 sm:py-20 px-4 sm:px-6 bg-gray-900/20">
+      <section
+        id="projects"
+        className="relative py-16 sm:py-20 px-4 sm:px-6 bg-gray-900/20"
+      >
         <div className="relative z-20 container mx-auto max-w-6xl">
           <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 bg-gradient-to-r from-indigo-400 via-purple-400 to-violet-400 bg-clip-text text-transparent">
             Featured Projects
@@ -541,7 +620,12 @@ export default function Portfolio() {
             <ProjectCard
               title="Predictive Analytics App"
               description="Mobile app for predictive analytics in business intelligence with interactive visualizations"
-              technologies={["React Native", "Python", "scikit-learn", "Charts"]}
+              technologies={[
+                "React Native",
+                "Python",
+                "scikit-learn",
+                "Charts",
+              ]}
               githubUrl="#"
               liveUrl="#"
             />
@@ -550,11 +634,13 @@ export default function Portfolio() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="relative py-16 sm:py-20 px-4 sm:px-6 overflow-hidden">
+      <section
+        id="contact"
+        className="relative py-16 sm:py-20 px-4 sm:px-6 overflow-hidden"
+      >
         <div className="absolute inset-0 z-10">
           <Canvas camera={{ position: [0, 0, 8] }}>
             <ContactBackground />
-            <ShootingStars />
             <ambientLight intensity={0.4} />
             <pointLight position={[5, 5, 5]} intensity={0.6} />
           </Canvas>
@@ -647,7 +733,9 @@ export default function Portfolio() {
                   <Button
                     variant="outline"
                     className="w-full border-indigo-400 text-indigo-400 hover:bg-indigo-400 hover:text-white transform hover:scale-105 transition-all duration-500"
-                    onClick={() => window.open("https://github.com/yourusername", "_blank")}
+                    onClick={() =>
+                      window.open("https://github.com/yourusername", "_blank")
+                    }
                   >
                     <Github className="w-4 h-4 mr-2" />
                     GitHub Profile
@@ -655,7 +743,12 @@ export default function Portfolio() {
                   <Button
                     variant="outline"
                     className="w-full border-violet-400 text-violet-400 hover:bg-violet-400 hover:text-white transform hover:scale-105 transition-all duration-500"
-                    onClick={() => window.open("https://linkedin.com/in/yourusername", "_blank")}
+                    onClick={() =>
+                      window.open(
+                        "https://linkedin.com/in/yourusername",
+                        "_blank"
+                      )
+                    }
                   >
                     <Linkedin className="w-4 h-4 mr-2" />
                     LinkedIn Profile
@@ -666,8 +759,12 @@ export default function Portfolio() {
               <Card className="bg-black/80 border-gray-800">
                 <CardContent className="pt-6">
                   <div className="text-center space-y-2">
-                    <h3 className="text-lg font-semibold text-white">Response Time</h3>
-                    <p className="text-gray-300">I typically respond within 24 hours</p>
+                    <h3 className="text-lg font-semibold text-white">
+                      Response Time
+                    </h3>
+                    <p className="text-gray-300">
+                      I typically respond within 24 hours
+                    </p>
                     <div className="flex justify-center space-x-4 mt-4">
                       <div className="text-center">
                         <div className="text-indigo-400 font-bold">Email</div>
@@ -689,76 +786,76 @@ export default function Portfolio() {
       {/* Footer */}
       <footer className="relative py-6 sm:py-8 px-4 sm:px-6 border-t border-gray-800">
         <div className="relative z-20 container mx-auto text-center text-gray-400">
-          <p className="text-sm sm:text-base">&copy; 2024 John Doe. All rights reserved.</p>
+          <p className="text-sm sm:text-base">
+            &copy; 2024 John Doe. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>
-  )
+  );
 }
 
 function HeroParticles() {
-  const mesh = useRef()
-  const { mouse, viewport } = useThree()
+  const mesh = useRef<THREE.Points>(null);
+  const { mouse, viewport } = useThree();
 
   const particles = useMemo(() => {
-    const temp = []
+    const temp = [];
     for (let i = 0; i < 1500; i++) {
-      const x = (Math.random() - 0.5) * 10
-      const y = (Math.random() - 0.5) * 10
-      const z = (Math.random() - 0.5) * 10
-      temp.push(x, y, z)
+      temp.push((Math.random() - 0.5) * 10);
+      temp.push((Math.random() - 0.5) * 10);
+      temp.push((Math.random() - 0.5) * 10);
     }
-    return new Float32Array(temp)
-  }, [])
+    return new Float32Array(temp);
+  }, []);
 
   useFrame((state) => {
-    const time = state.clock.getElapsedTime()
-
+    const time = state.clock.getElapsedTime();
     if (mesh.current) {
-      mesh.current.rotation.x = time * 0.1
-      mesh.current.rotation.y = time * 0.05
-
-      // Mouse interaction
-      mesh.current.rotation.x += mouse.y * viewport.height * 0.00005
-      mesh.current.rotation.y += mouse.x * viewport.width * 0.00005
+      mesh.current.rotation.x =
+        time * 0.1 + mouse.y * viewport.height * 0.00005;
+      mesh.current.rotation.y =
+        time * 0.05 + mouse.x * viewport.width * 0.00005;
     }
-  })
+  });
 
   return (
     <Points ref={mesh} positions={particles} stride={3} frustumCulled={false}>
-      <PointMaterial transparent color="#6366f1" size={0.008} sizeAttenuation={true} depthWrite={false} blending={2} />
+      <PointMaterial
+        transparent
+        color="#6366f1"
+        size={0.008}
+        sizeAttenuation
+        depthWrite={false}
+        blending={2}
+      />
     </Points>
-  )
+  );
 }
 
 function AboutBackground() {
-  const groupRef = useRef()
-  const { mouse } = useThree()
+  const groupRef = useRef<THREE.Group>(null);
+  const { mouse } = useThree();
 
   const codeParticles = useMemo(() => {
-    const temp = []
+    const temp = [];
     for (let i = 0; i < 800; i++) {
-      const x = (Math.random() - 0.5) * 15
-      const y = (Math.random() - 0.5) * 15
-      const z = (Math.random() - 0.5) * 15
-      temp.push(x, y, z)
+      temp.push((Math.random() - 0.5) * 15);
+      temp.push((Math.random() - 0.5) * 15);
+      temp.push((Math.random() - 0.5) * 15);
     }
-    return new Float32Array(temp)
-  }, [])
+    return new Float32Array(temp);
+  }, []);
 
   useFrame((state) => {
-    const time = state.clock.getElapsedTime()
-
+    const time = state.clock.getElapsedTime();
     if (groupRef.current) {
-      groupRef.current.rotation.x = Math.sin(time * 0.2) * 0.1
-      groupRef.current.rotation.y = time * 0.03
-      groupRef.current.rotation.z = Math.cos(time * 0.1) * 0.05
-
-      // Mouse interaction
-      groupRef.current.rotation.x += mouse.y * 0.0002
-      groupRef.current.rotation.y += mouse.x * 0.0002
+      groupRef.current.rotation.x =
+        Math.sin(time * 0.2) * 0.1 + mouse.y * 0.0002;
+      groupRef.current.rotation.y = time * 0.03 + mouse.x * 0.0002;
+      groupRef.current.rotation.z = Math.cos(time * 0.1) * 0.05;
     }
-  })
+  });
 
   return (
     <group ref={groupRef}>
@@ -767,72 +864,51 @@ function AboutBackground() {
           transparent
           color="#8b5cf6"
           size={0.012}
-          sizeAttenuation={true}
+          sizeAttenuation
           depthWrite={false}
           blending={2}
           opacity={0.6}
         />
       </Points>
-
-      {/* Floating geometric shapes */}
-      <mesh position={[-3, 2, -2]}>
-        <boxGeometry args={[0.5, 0.5, 0.5]} />
-        <meshStandardMaterial color="#6366f1" transparent opacity={0.3} wireframe />
-      </mesh>
-
-      <mesh position={[3, -1, -3]}>
-        <sphereGeometry args={[0.4, 16, 16]} />
-        <meshStandardMaterial color="#8b5cf6" transparent opacity={0.4} wireframe />
-      </mesh>
-
-      <mesh position={[0, 3, -4]}>
-        <octahedronGeometry args={[0.6]} />
-        <meshStandardMaterial color="#4f46e5" transparent opacity={0.3} wireframe />
-      </mesh>
     </group>
-  )
+  );
 }
 
 function ContactBackground() {
-  const systemRef = useRef()
-  const { mouse } = useThree()
+  const systemRef = useRef<THREE.Group>(null);
+  const { mouse } = useThree();
 
   const starField = useMemo(() => {
-    const stars = []
+    const stars = [];
     for (let i = 0; i < 2000; i++) {
-      const x = (Math.random() - 0.5) * 30
-      const y = (Math.random() - 0.5) * 30
-      const z = (Math.random() - 0.5) * 30
-      stars.push(x, y, z)
+      stars.push((Math.random() - 0.5) * 30);
+      stars.push((Math.random() - 0.5) * 30);
+      stars.push((Math.random() - 0.5) * 30);
     }
-    return new Float32Array(stars)
-  }, [])
+    return new Float32Array(stars);
+  }, []);
 
   useFrame((state) => {
-    const time = state.clock.getElapsedTime()
-
+    const time = state.clock.getElapsedTime();
     if (systemRef.current) {
-      systemRef.current.rotation.y = time * 0.005
-      systemRef.current.rotation.x += mouse.y * 0.0001
-      systemRef.current.rotation.y += mouse.x * 0.0001
+      systemRef.current.rotation.y = time * 0.005 + mouse.x * 0.0001;
+      systemRef.current.rotation.x += mouse.y * 0.0001;
     }
-  })
+  });
 
   return (
     <group ref={systemRef}>
-      {/* Enhanced starfield background */}
       <Points positions={starField} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
           color="#ffffff"
           size={0.003}
-          sizeAttenuation={true}
+          sizeAttenuation
           depthWrite={false}
           opacity={0.8}
         />
       </Points>
 
-      {/* Cosmic dust clouds */}
       <Points
         positions={
           new Float32Array(
@@ -840,7 +916,7 @@ function ContactBackground() {
               (Math.random() - 0.5) * 20,
               (Math.random() - 0.5) * 20,
               (Math.random() - 0.5) * 20,
-            ]).flat(),
+            ]).flat()
           )
         }
         stride={3}
@@ -850,96 +926,13 @@ function ContactBackground() {
           transparent
           color="#8b5cf6"
           size={0.008}
-          sizeAttenuation={true}
+          sizeAttenuation
           depthWrite={false}
           opacity={0.3}
         />
       </Points>
     </group>
-  )
-}
-
-function ShootingStars() {
-  const starsRef = useRef([])
-  const [shootingStars, setShootingStars] = useState([])
-
-  useEffect(() => {
-    const createShootingStar = () => {
-      const id = Math.random()
-      const startX = (Math.random() - 0.5) * 20
-      const startY = (Math.random() - 0.5) * 10
-      const startZ = -10
-      const endX = startX + (Math.random() - 0.5) * 10
-      const endY = startY - Math.random() * 5
-      const endZ = 5
-
-      setShootingStars((prev) => [
-        ...prev,
-        {
-          id,
-          startPos: [startX, startY, startZ],
-          endPos: [endX, endY, endZ],
-          progress: 0,
-        },
-      ])
-
-      // Remove shooting star after animation
-      setTimeout(() => {
-        setShootingStars((prev) => prev.filter((star) => star.id !== id))
-      }, 2000)
-    }
-
-    const interval = setInterval(createShootingStar, 3000 + Math.random() * 4000)
-    return () => clearInterval(interval)
-  }, [])
-
-  useFrame((state, delta) => {
-    setShootingStars((prev) =>
-      prev.map((star) => ({
-        ...star,
-        progress: Math.min(star.progress + delta * 0.8, 1),
-      })),
-    )
-  })
-
-  return (
-    <group>
-      {shootingStars.map((star) => {
-        const currentPos = [
-          star.startPos[0] + (star.endPos[0] - star.startPos[0]) * star.progress,
-          star.startPos[1] + (star.endPos[1] - star.startPos[1]) * star.progress,
-          star.startPos[2] + (star.endPos[2] - star.startPos[2]) * star.progress,
-        ]
-
-        return (
-          <group key={star.id}>
-            {/* Main shooting star */}
-            <mesh position={currentPos}>
-              <sphereGeometry args={[0.02, 8, 8]} />
-              <meshBasicMaterial color="#ffffff" transparent opacity={1 - star.progress} />
-            </mesh>
-
-            {/* Trail effect */}
-            {Array.from({ length: 5 }).map((_, i) => {
-              const trailProgress = Math.max(0, star.progress - i * 0.1)
-              const trailPos = [
-                star.startPos[0] + (star.endPos[0] - star.startPos[0]) * trailProgress,
-                star.startPos[1] + (star.endPos[1] - star.startPos[1]) * trailProgress,
-                star.startPos[2] + (star.endPos[2] - star.startPos[2]) * trailProgress,
-              ]
-
-              return (
-                <mesh key={i} position={trailPos}>
-                  <sphereGeometry args={[0.01 * (1 - i * 0.2), 4, 4]} />
-                  <meshBasicMaterial color="#6366f1" transparent opacity={(1 - star.progress) * (1 - i * 0.3)} />
-                </mesh>
-              )
-            })}
-          </group>
-        )
-      })}
-    </group>
-  )
+  );
 }
 
 function ExperienceCard({ title, company, period, description, technologies }) {
@@ -952,11 +945,17 @@ function ExperienceCard({ title, company, period, description, technologies }) {
             <Briefcase className="w-4 h-4" />
             <span className="text-sm">{period}</span>
           </div>
-          <CardTitle className="text-white text-lg sm:text-xl">{title}</CardTitle>
-          <CardDescription className="text-violet-300 font-medium">{company}</CardDescription>
+          <CardTitle className="text-white text-lg sm:text-xl">
+            {title}
+          </CardTitle>
+          <CardDescription className="text-violet-300 font-medium">
+            {company}
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-gray-300 mb-4 leading-relaxed text-sm sm:text-base">{description}</p>
+          <p className="text-gray-300 mb-4 leading-relaxed text-sm sm:text-base">
+            {description}
+          </p>
           <div className="flex flex-wrap gap-2">
             {technologies.map((tech, index) => (
               <Badge
@@ -971,7 +970,7 @@ function ExperienceCard({ title, company, period, description, technologies }) {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
 
 function SkillCard({ icon, title, skills }) {
@@ -981,12 +980,17 @@ function SkillCard({ icon, title, skills }) {
         <div className="mx-auto mb-3 sm:mb-4 text-indigo-400 transform hover:scale-110 hover:rotate-12 transition-all duration-500">
           {icon}
         </div>
-        <CardTitle className="text-white text-sm sm:text-base">{title}</CardTitle>
+        <CardTitle className="text-white text-sm sm:text-base">
+          {title}
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-2">
           {skills.map((skill, index) => (
-            <div key={index} className="flex items-center gap-2 text-xs sm:text-sm">
+            <div
+              key={index}
+              className="flex items-center gap-2 text-xs sm:text-sm"
+            >
               <span className="text-base sm:text-lg">{skill.icon}</span>
               <span className="text-gray-300">{skill.name}</span>
             </div>
@@ -994,7 +998,7 @@ function SkillCard({ icon, title, skills }) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 function ProjectCard({ title, description, technologies, githubUrl, liveUrl }) {
@@ -1019,7 +1023,9 @@ function ProjectCard({ title, description, technologies, githubUrl, liveUrl }) {
         <CardTitle className="text-white group-hover:text-indigo-400 transition-colors duration-500 text-lg sm:text-xl">
           {title}
         </CardTitle>
-        <CardDescription className="text-gray-300 text-sm sm:text-base">{description}</CardDescription>
+        <CardDescription className="text-gray-300 text-sm sm:text-base">
+          {description}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4">
@@ -1053,5 +1059,5 @@ function ProjectCard({ title, description, technologies, githubUrl, liveUrl }) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

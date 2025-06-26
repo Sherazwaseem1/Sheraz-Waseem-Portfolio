@@ -222,14 +222,33 @@ html {
 
 /* Glowing text effect */
 .text-glow {
-  text-shadow: 0 0 10px rgba(99, 102, 241, 0.5), 0 0 20px rgba(99, 102, 241, 0.3), 0 0 30px rgba(99, 102, 241, 0.1);
+  text-shadow: 0 0 10px rgba(99, 102, 241, 0.5),
+    0 0 20px rgba(99, 102, 241, 0.3), 0 0 30px rgba(99, 102, 241, 0.1);
 }
 
 /* Cosmic background for sections */
 .cosmic-bg {
-  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%),
-    radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at 20% 80%, rgba(79, 70, 229, 0.1) 0%, transparent 50%);
+  background: radial-gradient(
+      ellipse at center,
+      rgba(99, 102, 241, 0.1) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse at 80% 20%,
+      rgba(139, 92, 246, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 20% 80%,
+      rgba(79, 70, 229, 0.1) 0%,
+      transparent 50%
+    );
+}
+
+/* global.css */
+.no-focus-outline:focus {
+  outline: none !important;
+  outline-offset: 0 !important;
 }
 
 /* Smooth transitions for all elements */
