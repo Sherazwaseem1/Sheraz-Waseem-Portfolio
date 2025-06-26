@@ -25,13 +25,29 @@ export default function HeroSection({
       return new Float32Array(temp);
     }, []);
 
-    useFrame((state) => {
+    const targetRotation = useRef({ x: 0, y: 0 });
+
+    useFrame((state, delta) => {
       const time = state.clock.getElapsedTime();
+      const mX = mouse.x * viewport.width * 0.0005;
+      const mY = mouse.y * viewport.height * 0.0005;
+
+      // target rotation based on time and mouse
+      targetRotation.current.x = time * 0.1 + mY;
+      targetRotation.current.y = time * 0.05 + mX;
+
+      // Smoothly interpolate current rotation toward target
       if (mesh.current) {
-        mesh.current.rotation.x =
-          time * 0.1 + mouse.y * viewport.height * 0.00005;
-        mesh.current.rotation.y =
-          time * 0.05 + mouse.x * viewport.width * 0.00005;
+        mesh.current.rotation.x = THREE.MathUtils.lerp(
+          mesh.current.rotation.x,
+          targetRotation.current.x,
+          0.05
+        );
+        mesh.current.rotation.y = THREE.MathUtils.lerp(
+          mesh.current.rotation.y,
+          targetRotation.current.y,
+          0.05
+        );
       }
     });
 
@@ -48,6 +64,7 @@ export default function HeroSection({
       </Points>
     );
   }
+
   // Custom hook for typing animation with role switching
   function useTypewriter(texts: string[], speed = 100) {
     const [displayText, setDisplayText] = useState("");
