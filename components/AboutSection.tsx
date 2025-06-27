@@ -65,47 +65,57 @@ export default function AboutSection() {
           About Me
         </h2>
         <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
-          <div className="transform hover:scale-105 transition-all duration-700 order-2 md:order-1">
-            <div className="w-48 h-48 sm:w-64 sm:h-64 mx-auto bg-gradient-to-br from-indigo-500 to-violet-500 rounded-full flex items-center justify-center animate-pulse-slow">
-              <div className="w-40 h-40 sm:w-56 sm:h-56 bg-black/90 rounded-full flex items-center justify-center backdrop-blur-sm border border-indigo-400/30">
-                <Code className="w-16 h-16 sm:w-24 sm:h-24 text-indigo-400 animate-spin-slow" />
+          <div className="transform hover:scale-105 transition-all duration-700 order-2 md:order-1 -mt-8">
+            <div className="relative group w-56 h-56 sm:w-72 sm:h-72 mx-auto rounded-2xl shadow-xl shadow-indigo-800/30 ring-2 ring-indigo-400/30 hover:ring-indigo-500/50 transition duration-500">
+              <img
+                src="/Profile-Pic.jpg"
+                alt="Sheraz Waseem"
+                className="w-full h-full rounded-2xl object-cover"
+              />
+              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 backdrop-blur-sm bg-black/40 px-4 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500">
+                <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-violet-500 bg-clip-text text-transparent text-xs sm:text-sm font-medium">
+                  Sheraz Waseem
+                </span>
               </div>
             </div>
           </div>
+
           <div className="text-gray-300 space-y-4 sm:space-y-6 order-1 md:order-2">
             <p className="text-base sm:text-lg leading-relaxed transform hover:translate-x-2 transition-all duration-500">
-              I'm a passionate software engineer and AI/ML specialist with 5+
-              years of experience building scalable web applications and
-              intelligent systems. I love turning complex problems into simple,
-              beautiful solutions.
+              I'm a Computer Science senior at LUMS and a passionate full-stack
+              developer and AI/ML enthusiast. With hands-on experience building
+              web and mobile applications, integrating APIs, and training deep
+              learning models, I love turning ideas into real-world products.
             </p>
             <p className="text-base sm:text-lg leading-relaxed transform hover:translate-x-2 transition-all duration-500">
-              When I'm not coding, you can find me exploring new AI
-              technologies, contributing to open source projects, or sharing
-              knowledge with the developer community about machine learning and
-              web development.
+              Beyond coding, I enjoy exploring cutting-edge AI architectures,
+              contributing to impactful research projects, and building
+              intelligent systems - from fire detection to medical imaging. I'm
+              always curious, always building.
             </p>
             <div className="flex gap-4 pt-4 justify-center md:justify-start">
               <Button
                 variant="outline"
                 size="icon"
-                className="border-indigo-400 text-indigo-400 hover:bg-indigo-400 hover:text-white transform hover:scale-110 hover:rotate-12 transition-all duration-500"
+                className="border-black text-black hover:bg-black hover:text-white transform hover:scale-110 hover:rotate-12 transition-all duration-500"
+                onClick={() =>
+                  window.open("https://github.com/Sherazwaseem1", "_blank")
+                }
               >
                 <Github className="w-5 h-5" />
               </Button>
               <Button
                 variant="outline"
                 size="icon"
-                className="border-violet-400 text-violet-400 hover:bg-violet-400 hover:text-white transform hover:scale-110 hover:rotate-12 transition-all duration-500"
+                className="border-[#0077B5] text-[#0077B5] hover:bg-[#0077B5] hover:text-white transform hover:scale-110 hover:rotate-12 transition-all duration-500"
+                onClick={() =>
+                  window.open(
+                    "https://www.linkedin.com/in/sheraz-waseem/",
+                    "_blank"
+                  )
+                }
               >
                 <Linkedin className="w-5 h-5" />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                className="border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white transform hover:scale-110 hover:rotate-12 transition-all duration-500"
-              >
-                <Mail className="w-5 h-5" />
               </Button>
             </div>
           </div>

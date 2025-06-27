@@ -57,18 +57,40 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
-/* Custom animations */
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6366f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4f46e5;
+}
+
+/* Animations */
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -118,8 +140,7 @@
 }
 
 @keyframes pulse-slow {
-  0%,
-  100% {
+  0%, 100% {
     opacity: 1;
   }
   50% {
@@ -151,30 +172,7 @@
   animation: pulse-slow 3s ease-in-out infinite;
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #000000;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #6366f1;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #4f46e5;
-}
-
-/* Gradient text animations */
+/* Gradient animations */
 @keyframes gradient-shift {
   0% {
     background-position: 0% 50%;
@@ -192,7 +190,6 @@ html {
   animation: gradient-shift 3s ease infinite;
 }
 
-/* Enhanced gradient effects */
 .gradient-text-primary {
   background: linear-gradient(45deg, #6366f1, #8b5cf6, #4f46e5);
   background-size: 200% 200%;
@@ -220,13 +217,14 @@ html {
   animation: gradient-shift 6s ease infinite;
 }
 
-/* Glowing text effect */
+/* Glow */
 .text-glow {
   text-shadow: 0 0 10px rgba(99, 102, 241, 0.5),
-    0 0 20px rgba(99, 102, 241, 0.3), 0 0 30px rgba(99, 102, 241, 0.1);
+    0 0 20px rgba(99, 102, 241, 0.3),
+    0 0 30px rgba(99, 102, 241, 0.1);
 }
 
-/* Cosmic background for sections */
+/* Cosmic background */
 .cosmic-bg {
   background: radial-gradient(
       ellipse at center,
@@ -245,23 +243,17 @@ html {
     );
 }
 
-/* global.css */
+/* Utility: Remove outline */
 .no-focus-outline:focus {
   outline: none !important;
   outline-offset: 0 !important;
 }
 
-/* Smooth transitions for all elements */
-* {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Enhanced button hover effects */
+/* Enhanced UX: Hover transforms */
 button:hover {
   transform: translateY(-2px);
 }
 
-/* Card hover effects */
 .group:hover {
   transform: translateY(-4px) scale(1.02);
 }
@@ -272,7 +264,7 @@ button:hover {
   color: white;
 }
 
-/* Focus styles */
+/* Keyboard accessibility */
 button:focus,
 a:focus {
   outline: 2px solid #6366f1;

@@ -5,17 +5,6 @@ import type React from "react";
 import { useRef, useEffect, useState, useMemo } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Github,
   Linkedin,
@@ -183,7 +172,7 @@ export default function Portfolio() {
               className="text-xl sm:text-2xl font-bold text-indigo-400 cursor-pointer transition-all duration-300 hover:text-indigo-300"
               onClick={() => scrollToSection("home")}
             >
-              Portfolio
+              Sheraz Waseem
             </div>
 
             {/* Desktop Navigation */}
