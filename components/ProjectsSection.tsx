@@ -1,11 +1,28 @@
-import { ExternalLink, Github } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { ExternalLink, Github } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+
+interface Project {
+  title: string;
+  description: string;
+  technologies: string[];
+  githubUrl: string;
+  liveUrl?: string;
+}
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="relative py-16 sm:py-20 px-4 sm:px-6 bg-gray-900/20">
+    <section
+      id="projects"
+      className="relative py-16 sm:py-20 px-4 sm:px-6 bg-gray-900/20"
+    >
       <div className="relative z-20 container mx-auto max-w-6xl">
         <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 bg-gradient-to-r from-indigo-400 via-purple-400 to-violet-400 bg-clip-text text-transparent">
           Featured Projects
@@ -17,64 +34,50 @@ export default function ProjectsSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
-const projects = [
+const projects: Project[] = [
   {
-    title: "AI-Powered E-Commerce",
+    title: "Forest Fire Detection (Mixture of Experts)",
     description:
-      "Full-stack e-commerce platform with AI recommendation engine and natural language search",
-    technologies: ["React", "Python", "TensorFlow", "PostgreSQL"],
-    githubUrl: "#",
-    liveUrl: "#",
+      "Swin Transformer + Faster R-CNN experts for satellite, indoor, and outdoor fire detection. Uses self-attention gating and Weighted Box Fusion.",
+    technologies: ["PyTorch", "Faster R-CNN", "Swin-T", "WBF", "CNN", "YOLO"],
+    githubUrl: "https://github.com/Sherazwaseem1/Forest-Fire-Detection",
   },
   {
-    title: "Smart Task Management",
+    title: "Alzheimer's MRI Classification",
     description:
-      "Collaborative task management with AI-powered priority suggestions and automated scheduling",
-    technologies: ["Next.js", "OpenAI API", "PostgreSQL", "Prisma"],
-    githubUrl: "#",
-    liveUrl: "#",
+      "Dementia classification using Swin Transformers and Enhanced SE Modules. Worked on OASIS-2 dataset for 4-class severity detection.",
+    technologies: ["PyTorch", "ViT", "Swin-T", "SE Module", "OASIS", "MRI"],
+    githubUrl: "https://github.com/Sherazwaseem1/Alzheimer-Classification",
   },
   {
-    title: "Computer Vision Dashboard",
+    title: "Fleet Management & Reimbursement System",
     description:
-      "Real-time object detection and analysis dashboard for security and monitoring applications",
-    technologies: ["Python", "OpenCV", "FastAPI", "React"],
-    githubUrl: "#",
-    liveUrl: "#",
+      "End-to-end React Native + Node.js system with AWB Labeling, Firebase Cloudinary uploads, and AI-based expense prediction.",
+    technologies: ["React Native", "Node.js", "MongoDB", "Cloudinary", "AI"],
+    githubUrl: "https://github.com/Sherazwaseem1/fleet-management",
   },
   {
-    title: "NLP Chatbot Platform",
+    title: "Real Estate Listing Platform (NETSOL)",
     description:
-      "Multi-language chatbot platform with sentiment analysis and intent recognition",
-    technologies: ["Python", "Transformers", "FastAPI", "React"],
-    githubUrl: "#",
-    liveUrl: "#",
+      "Internship project using React + FastAPI. CRUD listings, Redux state, PostgreSQL DB, and Firebase for media uploads.",
+    technologies: ["React", "FastAPI", "Redux", "PostgreSQL", "Firebase"],
+    githubUrl: "https://github.com/Sherazwaseem1/real-estate",
   },
-  {
-    title: "ML Model Deployment",
-    description:
-      "MLOps platform for automated model training, validation, and deployment with monitoring",
-    technologies: ["Python", "MLflow", "Docker", "Kubernetes"],
-    githubUrl: "#",
-    liveUrl: "#",
-  },
-  {
-    title: "Predictive Analytics App",
-    description:
-      "Mobile app for predictive analytics in business intelligence with interactive visualizations",
-    technologies: ["React Native", "Python", "scikit-learn", "Charts"],
-    githubUrl: "#",
-    liveUrl: "#",
-  },
-]
+];
 
-function ProjectCard({ title, description, technologies, githubUrl, liveUrl }) {
+function ProjectCard({
+  title,
+  description,
+  technologies,
+  githubUrl,
+  liveUrl,
+}: Project) {
   return (
     <Card className="bg-black/80 border-gray-800 hover:border-indigo-500/40 transition-all duration-500 hover:transform hover:scale-105 hover:-translate-y-2 group overflow-hidden">
-      {/* Project Image */}
+      {/* Project Image (placeholder for now) */}
       <div className="relative h-40 sm:h-48 bg-gradient-to-br from-indigo-900/50 to-violet-900/50 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
         <img
@@ -97,6 +100,7 @@ function ProjectCard({ title, description, technologies, githubUrl, liveUrl }) {
           {description}
         </CardDescription>
       </CardHeader>
+
       <CardContent>
         <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4">
           {technologies.map((tech, index) => (
@@ -119,17 +123,19 @@ function ProjectCard({ title, description, technologies, githubUrl, liveUrl }) {
             <Github className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
             Code
           </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => window.open(liveUrl, "_blank")}
-            className="border-violet-400 text-violet-400 hover:bg-violet-400 hover:text-white transform hover:scale-110 transition-all duration-500 text-xs sm:text-sm"
-          >
-            <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-            Live
-          </Button>
+          {liveUrl && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => window.open(liveUrl, "_blank")}
+              className="border-violet-400 text-violet-400 hover:bg-violet-400 hover:text-white transform hover:scale-110 transition-all duration-500 text-xs sm:text-sm"
+            >
+              <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              Live
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
