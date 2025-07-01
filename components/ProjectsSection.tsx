@@ -85,11 +85,7 @@ function ProjectCard({
           alt={title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-20">
-          <Badge variant="secondary" className="bg-black/70 text-white text-xs">
-            Featured
-          </Badge>
-        </div>
+
       </div>
 
       <CardHeader className="pb-3 sm:pb-4">
@@ -115,10 +111,9 @@ function ProjectCard({
         </div>
         <div className="flex gap-2">
           <Button
-            variant="outline"
             size="sm"
             onClick={() => window.open(githubUrl, "_blank")}
-            className="border-indigo-400 text-indigo-400 hover:bg-indigo-400 hover:text-white transform hover:scale-110 transition-all duration-500 text-xs sm:text-sm"
+            className="bg-white text-black hover:bg-[#24292f] hover:text-white border border-gray-300 transform hover:scale-110 transition-all duration-500 text-xs sm:text-sm"
           >
             <Github className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
             Code

@@ -1,20 +1,27 @@
-import type { Metadata } from 'next'
-import './globals.css'
+import type { Metadata } from "next";
+import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
-}
+  title: "Sheraz Waseem | Portfolio",
+  description:
+    "The official portfolio of Sheraz Waseem - showcasing projects, skills, and contact information.",
+  icons: {
+    icon: "/Sheraz_Tab_Pic.jpg",
+  },
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
+      </body>
     </html>
-  )
+  );
 }

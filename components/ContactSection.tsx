@@ -13,6 +13,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { useMemo, useRef, useState } from "react";
+import emailjs from "emailjs-com";
+import toast from "react-hot-toast";
 
 function ContactBackground() {
   const systemRef = useRef<THREE.Group>(null);
@@ -48,7 +50,6 @@ function ContactBackground() {
           opacity={0.8}
         />
       </Points>
-
       <Points
         positions={
           new Float32Array(
@@ -82,18 +83,53 @@ export default function ContactSection() {
     message: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleEmailSubmit = (e) => {
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Sending email:", formData);
-    // Integrate with email sending logic here
+
+    const { name, email, message } = formData;
+    if (!name || !email || !message) {
+      toast.error("Please fill out all fields.");
+      return;
+    }
+
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
+
+    const toastId = toast.loading("Sending message...");
+
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          name,
+          email,
+          message,
+          title: "Portfolio Contact",
+        },
+        publicKey
+      );
+
+      toast.success("Message sent successfully!", { id: toastId });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error: any) {
+      console.error("Email error:", error);
+      toast.error("Failed to send message. Please try again.", { id: toastId });
+    }
   };
 
   const handleWhatsAppClick = () => {
-    window.open("https://wa.me/923000000000", "_blank");
+    const message = encodeURIComponent(
+      "Hi, I saw your portfolio and wanted to connect."
+    );
+    window.open(`https://wa.me/923226382191?text=${message}`, "_blank");
   };
 
   return (
@@ -117,7 +153,6 @@ export default function ContactSection() {
         </p>
 
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
-          {/* Contact Form */}
           <Card className="bg-black/80 border-gray-800 hover:border-indigo-500/40 transition-all duration-500">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
@@ -167,7 +202,6 @@ export default function ContactSection() {
             </CardContent>
           </Card>
 
-          {/* Quick Contact Options */}
           <div className="space-y-6">
             <Card className="bg-black/80 border-gray-800 hover:border-violet-500/40 transition-all duration-500">
               <CardHeader>
@@ -181,34 +215,33 @@ export default function ContactSection() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <Button
-                  onClick={handleWhatsAppClick}
-                  className="w-full bg-green-600 hover:bg-green-700 text-white transform hover:scale-105 transition-all duration-500"
-                >
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  WhatsApp Chat
-                </Button>
-                <Button
-                  variant="outline"
-                  className="w-full border-indigo-400 text-indigo-400 hover:bg-indigo-400 hover:text-white transform hover:scale-105 transition-all duration-500"
+                  className="w-full bg-[#24292f] hover:bg-[#1b1f23] text-white transform hover:scale-105 transition-all duration-500"
                   onClick={() =>
-                    window.open("https://github.com/yourusername", "_blank")
+                    window.open("https://github.com/Sherazwaseem1", "_blank")
                   }
                 >
                   <Github className="w-4 h-4 mr-2" />
                   GitHub Profile
                 </Button>
                 <Button
-                  variant="outline"
-                  className="w-full border-violet-400 text-violet-400 hover:bg-violet-400 hover:text-white transform hover:scale-105 transition-all duration-500"
+                  className="w-full bg-[#0a66c2] hover:bg-[#004182] text-white transform hover:scale-105 transition-all duration-500"
                   onClick={() =>
                     window.open(
-                      "https://linkedin.com/in/yourusername",
+                      "https://www.linkedin.com/in/sheraz-waseem/",
                       "_blank"
                     )
                   }
                 >
                   <Linkedin className="w-4 h-4 mr-2" />
                   LinkedIn Profile
+                </Button>
+                <Button
+                  type="button"
+                  onClick={handleWhatsAppClick}
+                  className="w-full bg-green-600 hover:bg-green-700 text-white transform hover:scale-105 transition-all duration-500"
+                >
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Start WhatsApp Chat
                 </Button>
               </CardContent>
             </Card>
@@ -229,7 +262,7 @@ export default function ContactSection() {
                     </div>
                     <div className="text-center">
                       <div className="text-green-400 font-bold">WhatsApp</div>
-                      <div className="text-sm text-gray-400">2–4 hours</div>
+                      <div className="text-sm text-gray-400">2-4 hours</div>
                     </div>
                   </div>
                 </div>
