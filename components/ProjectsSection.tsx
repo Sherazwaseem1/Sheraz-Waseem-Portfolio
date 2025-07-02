@@ -15,6 +15,7 @@ interface Project {
   technologies: string[];
   githubUrl: string;
   liveUrl?: string;
+  imageUrl: string; // Added this
 }
 
 export default function ProjectsSection() {
@@ -39,11 +40,12 @@ export default function ProjectsSection() {
 
 const projects: Project[] = [
   {
-    title: "Forest Fire Detection (Mixture of Experts)",
+    title: "Forest Fire Detection",
     description:
       "Swin Transformer + Faster R-CNN experts for satellite, indoor, and outdoor fire detection. Uses self-attention gating and Weighted Box Fusion.",
     technologies: ["PyTorch", "Faster R-CNN", "Swin-T", "WBF", "CNN", "YOLO"],
     githubUrl: "https://github.com/Sherazwaseem1/Forest-Fire-Detection",
+    imageUrl: "/Fire_detection_pic.png", // update this to your image path
   },
   {
     title: "Alzheimer's MRI Classification",
@@ -51,6 +53,7 @@ const projects: Project[] = [
       "Dementia classification using Swin Transformers and Enhanced SE Modules. Worked on OASIS-2 dataset for 4-class severity detection.",
     technologies: ["PyTorch", "ViT", "Swin-T", "SE Module", "OASIS", "MRI"],
     githubUrl: "https://github.com/Sherazwaseem1/Alzheimer-Classification",
+    imageUrl: "/Alzheimer_Pic.png",
   },
   {
     title: "Fleet Management & Reimbursement System",
@@ -58,13 +61,39 @@ const projects: Project[] = [
       "End-to-end React Native + Node.js system with AWB Labeling, Firebase Cloudinary uploads, and AI-based expense prediction.",
     technologies: ["React Native", "Node.js", "MongoDB", "Cloudinary", "AI"],
     githubUrl: "https://github.com/Sherazwaseem1/fleet-management",
+    imageUrl: "/FleetManagement_pic.png",
   },
   {
-    title: "Real Estate Listing Platform (NETSOL)",
+    title: "Real Estate Management System",
     description:
       "Internship project using React + FastAPI. CRUD listings, Redux state, PostgreSQL DB, and Firebase for media uploads.",
     technologies: ["React", "FastAPI", "Redux", "PostgreSQL", "Firebase"],
     githubUrl: "https://github.com/Sherazwaseem1/real-estate",
+    imageUrl: "/EstateHub_pic.png",
+  },
+  {
+    title: "Spotify Clone",
+    description:
+      "A responsive Spotify web clone built using HTML, CSS, and JavaScript. Includes features like dynamic song play/pause, seek bar, and real-time UI updates.",
+    technologies: ["HTML", "CSS", "JavaScript"],
+    githubUrl: "https://github.com/Sherazwaseem1/real-estate",
+    imageUrl: "/spotify_pic.png",
+  },
+  {
+    title: "Gym Website",
+    description:
+      "A gym website built with Express.js and Pug templating engine. Includes pages for membership plans, contact forms, and class schedules with clean responsive UI.",
+    technologies: ["Express.js", "Pug", "Node.js", "HTML", "CSS"],
+    githubUrl: "https://github.com/Sherazwaseem1/gym-website", // ← update if needed
+    imageUrl: "/gym_pic.png", // ← make sure this image exists in /public
+  },
+  {
+    title: "Taskify - ToDo App",
+    description:
+      "A clean and responsive ToDo list application built using React.js and Tailwind CSS. Allows users to add, manage, and delete tasks with a sleek UI and local state management.",
+    technologies: ["React.js", "Tailwind CSS", "JavaScript"],
+    githubUrl: "https://github.com/Sherazwaseem1/taskify", // update if different
+    imageUrl: "/Todolist_pic.png", // make sure this image exists in /public
   },
 ];
 
@@ -74,18 +103,17 @@ function ProjectCard({
   technologies,
   githubUrl,
   liveUrl,
+  imageUrl,
 }: Project) {
   return (
     <Card className="bg-black/80 border-gray-800 hover:border-indigo-500/40 transition-all duration-500 hover:transform hover:scale-105 hover:-translate-y-2 group overflow-hidden">
-      {/* Project Image (placeholder for now) */}
       <div className="relative h-40 sm:h-48 bg-gradient-to-br from-indigo-900/50 to-violet-900/50 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
         <img
-          src="/placeholder.svg?height=200&width=400"
+          src={imageUrl}
           alt={title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-
       </div>
 
       <CardHeader className="pb-3 sm:pb-4">

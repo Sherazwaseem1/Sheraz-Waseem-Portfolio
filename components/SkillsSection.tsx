@@ -164,7 +164,7 @@ function SkillBox({
         className="object-contain"
       />
 
-      <span className="text-sm font-medium text-gray-800 whitespace-nowrap">
+      <span className="text-sm font-medium text-gray-800 whitespace-nowrap leading-tight">
         {name}
       </span>
     </div>
@@ -175,7 +175,7 @@ export default function SkillsSection() {
   return (
     <section id="skills" className="relative py-20 px-4 sm:px-6 bg-black/90">
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-violet-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
+        <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-violet-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent leading-snug">
           Skills & Technologies
         </h2>
 
