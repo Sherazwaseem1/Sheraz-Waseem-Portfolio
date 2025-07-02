@@ -95,6 +95,14 @@ const projects: Project[] = [
     githubUrl: "https://github.com/Sherazwaseem1/taskify", // update if different
     imageUrl: "/Todolist_pic.png", // make sure this image exists in /public
   },
+  {
+    title: "ColorGrid - Multiplayer Color Conquest",
+    description:
+      "A real-time 2-player color conquest game built with React, Node, and Socket.IO. Players take turns filling a 5x5 grid, aiming to form the largest connected island of their color. Features live gameplay, user auth, and score logic.",
+    technologies: ["React.js", "CSS", "Socket.IO", "Express", "Node.js"],
+    githubUrl: "https://github.com/Sherazwaseem1/colorgrid", // update if needed
+    imageUrl: "/Colorgrid_pic_2.png",
+  },
 ];
 
 function ProjectCard({
