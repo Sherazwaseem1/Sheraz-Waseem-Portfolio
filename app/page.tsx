@@ -1,10 +1,9 @@
 "use client";
 
-import type React from "react";
-
 import { useRef, useEffect, useState, useMemo } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Points, PointMaterial } from "@react-three/drei";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Points, PointMaterial, Sphere } from "@react-three/drei";
+import * as THREE from "three";
 import {
   Github,
   Linkedin,
@@ -25,7 +24,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import * as THREE from "three";
+
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ExperienceSection from "@/components/ExperienceSection";
@@ -33,15 +32,17 @@ import SkillsSection from "@/components/SkillsSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
 
+import { AnimatePresence, motion } from "framer-motion";
+
 function GlobalStarsBackground() {
   const mesh = useRef<THREE.Points>(null);
 
   const particles = useMemo(() => {
     const temp = [];
-    for (let i = 0; i < 3000; i++) {
-      const x = (Math.random() - 0.5) * 50;
-      const y = (Math.random() - 0.5) * 50;
-      const z = (Math.random() - 0.5) * 50;
+    for (let i = 0; i < 5000; i++) {
+      const x = (Math.random() - 0.5) * 100;
+      const y = (Math.random() - 0.5) * 100;
+      const z = (Math.random() - 0.5) * 100;
       temp.push(x, y, z);
     }
     return new Float32Array(temp);
@@ -50,8 +51,8 @@ function GlobalStarsBackground() {
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
     if (mesh.current) {
-      mesh.current.rotation.x = time * 0.01;
-      mesh.current.rotation.y = time * 0.005;
+      mesh.current.rotation.x = time * 0.08; // faster
+      mesh.current.rotation.y = time * 0.04;
     }
   });
 
@@ -60,11 +61,11 @@ function GlobalStarsBackground() {
       <PointMaterial
         transparent
         color="#ffffff"
-        size={0.003}
-        sizeAttenuation={true}
+        size={0.07} // much bigger
+        sizeAttenuation
         depthWrite={false}
-        opacity={0.6}
-        blending={2}
+        opacity={0.85}
+        blending={THREE.AdditiveBlending}
       />
     </Points>
   );
@@ -83,8 +84,6 @@ export default function Portfolio() {
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
-
-      // Update active section based on scroll position
       const sections = [
         "home",
         "about",
@@ -111,11 +110,7 @@ export default function Portfolio() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-        inline: "nearest",
-      });
+      element.scrollIntoView({ behavior: "smooth" });
     }
     setMobileMenuOpen(false);
   };
@@ -156,31 +151,40 @@ export default function Portfolio() {
   ];
 
   return (
-    <div className="min-h-screen bg-black relative">
-      {/* Global Stars Background */}
-      <div className="fixed inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 1] }}>
-          <GlobalStarsBackground />
-        </Canvas>
-      </div>
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* 🌌 Global Stars + Nebula */}
+      <AnimatePresence>
+        <motion.div
+          className="fixed inset-0 z-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1 }}
+        >
+          <Canvas
+            camera={{ position: [0, 0, 1] }}
+            gl={{ preserveDrawingBuffer: true }}
+          >
+            <GlobalStarsBackground />
+          </Canvas>
+        </motion.div>
+      </AnimatePresence>
 
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-gray-800 transition-all duration-500">
+      {/* Navigation Bar */}
+      <nav className="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-gray-800">
         <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex justify-between items-center">
             <div
-              className="text-xl sm:text-2xl font-bold text-indigo-400 cursor-pointer transition-all duration-300 hover:text-indigo-300"
+              className="text-xl sm:text-2xl font-bold text-indigo-400 cursor-pointer hover:text-indigo-300"
               onClick={() => scrollToSection("home")}
             >
               Sheraz Waseem
             </div>
-
-            {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-6 lg:space-x-8">
               {navigationItems.map((item) => (
                 <button
                   key={item.id}
-                  className={`no-focus-outline px-2 py-2 text-white hover:text-indigo-400 ${
+                  className={`text-white hover:text-indigo-400 ${
                     activeSection === item.id ? "text-indigo-400" : ""
                   }`}
                   onClick={() => scrollToSection(item.id)}
@@ -189,10 +193,8 @@ export default function Portfolio() {
                 </button>
               ))}
             </div>
-
-            {/* Mobile Menu Button */}
             <button
-              className="md:hidden text-white hover:text-indigo-400 transition-colors duration-300"
+              className="md:hidden text-white hover:text-indigo-400"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
@@ -203,52 +205,52 @@ export default function Portfolio() {
             </button>
           </div>
 
-          {/* Mobile Navigation */}
-          {mobileMenuOpen && (
-            <div className="md:hidden mt-4 pb-4 border-t border-gray-800">
-              <div className="flex flex-col space-y-3 pt-4">
-                {navigationItems.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className={`text-left px-2 py-2 text-white hover:text-indigo-400 transition-all duration-300 ${
-                      activeSection === item.id ? "text-indigo-400" : ""
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <motion.div
+                key="mobile-menu"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+                className="md:hidden border-t border-gray-800 pt-4 pb-4"
+              >
+                <div className="flex flex-col space-y-3">
+                  {navigationItems.map((item, index) => (
+                    <motion.button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className={`text-white hover:text-indigo-400 ${
+                        activeSection === item.id ? "text-indigo-400" : ""
+                      }`}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -10 }}
+                      transition={{ delay: 0.05 * index, duration: 0.3 }}
+                    >
+                      {item.label}
+                    </motion.button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Sections */}
       <HeroSection scrollToSection={scrollToSection} />
-
-      {/* About Section */}
       <AboutSection />
-
-      {/* Experience Section */}
       <ExperienceSection />
-
-      {/* Skills Section */}
       <SkillsSection />
-
-      {/* Projects Section */}
       <ProjectsSection />
-
-      {/* Contact Section */}
       <ContactSection />
 
       {/* Footer */}
-      <footer className="relative py-6 sm:py-8 px-4 sm:px-6 border-t border-gray-800">
-        <div className="relative z-20 container mx-auto text-center text-gray-400">
-          <p className="text-sm sm:text-base">
-            &copy; 2025 Sheraz Waseem. All rights reserved.
-          </p>
-        </div>
+      <footer className="relative py-6 sm:py-8 px-4 sm:px-6 border-t border-gray-800 text-center text-gray-400">
+        <p className="text-sm sm:text-base">
+          &copy; 2025 Sheraz Waseem. All rights reserved.
+        </p>
       </footer>
     </div>
   );
