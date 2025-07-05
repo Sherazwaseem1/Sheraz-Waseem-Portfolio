@@ -105,6 +105,24 @@ export default function ExperienceSection() {
 const experiences: Experience[] = [
   {
     title: "Software Engineering Intern",
+    company: "Systems Limited",
+    period: "July 2025 - Present",
+    location: "Lahore (Pakistan) - Onsite",
+    description:
+      "Currently working in the AtClose department at Systems Limited, contributing to the development and maintenance of a U.S.-based real estate product tailored for title insurance and mortgage settlement services. AtClose streamlines title processing workflows for title companies, lenders, and underwriters by offering end-to-end automation, compliance handling, and document management. My responsibilities include building backend modules using Java, writing SQL queries for data operations, and working with legacy XHTML code to support UI updates. I'm collaborating with cross-functional teams to ensure performance, accuracy, and compliance across the system.",
+    technologies: [
+      "Java",
+      "MySQL",
+      "XHTML",
+      "JSP",
+      "Servlets",
+      "XML",
+      "Oracle PL/SQL",
+    ],
+    logo: "/Systems_logo.jpg",
+  },
+  {
+    title: "Software Engineering Intern",
     company: "Parcel2Ship",
     period: "May 2025 - Present",
     location: "Dubai (UAE) - Remote",

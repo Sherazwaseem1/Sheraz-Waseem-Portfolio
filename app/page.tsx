@@ -152,7 +152,6 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* 🌌 Global Stars + Nebula */}
       <AnimatePresence>
         <motion.div
           className="fixed inset-0 z-0"
