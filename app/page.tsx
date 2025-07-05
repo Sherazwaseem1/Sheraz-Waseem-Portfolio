@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial, Sphere } from "@react-three/drei";
+import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import {
   Github,
@@ -51,7 +51,7 @@ function GlobalStarsBackground() {
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
     if (mesh.current) {
-      mesh.current.rotation.x = time * 0.08; // faster
+      mesh.current.rotation.x = time * 0.08;
       mesh.current.rotation.y = time * 0.04;
     }
   });
@@ -61,7 +61,7 @@ function GlobalStarsBackground() {
       <PointMaterial
         transparent
         color="#ffffff"
-        size={0.07} // much bigger
+        size={0.07}
         sizeAttenuation
         depthWrite={false}
         opacity={0.85}
@@ -74,11 +74,6 @@ function GlobalStarsBackground() {
 export default function Portfolio() {
   const [scrollY, setScrollY] = useState(0);
   const [activeSection, setActiveSection] = useState("home");
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -107,38 +102,33 @@ export default function Portfolio() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        mobileMenuOpen &&
+        !(event.target as Element).closest(".mobile-menu-container")
+      ) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "unset";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [mobileMenuOpen]);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
     setMobileMenuOpen(false);
-  };
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleEmailSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const subject = encodeURIComponent(
-      `Portfolio Contact from ${formData.name}`
-    );
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    );
-    window.open(
-      `mailto:your.email@example.com?subject=${subject}&body=${body}`
-    );
-  };
-
-  const handleWhatsAppClick = () => {
-    const message = encodeURIComponent(
-      "Hi! I'm interested in discussing a project with you."
-    );
-    window.open(`https://wa.me/1234567890?text=${message}`, "_blank");
   };
 
   const navigationItems = [
@@ -169,7 +159,6 @@ export default function Portfolio() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Navigation Bar */}
       <nav className="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-gray-800">
         <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex justify-between items-center">
@@ -179,21 +168,25 @@ export default function Portfolio() {
             >
               Sheraz Waseem
             </div>
+
             <div className="hidden md:flex space-x-6 lg:space-x-8">
               {navigationItems.map((item) => (
                 <button
                   key={item.id}
-                  className={`text-white hover:text-indigo-400 ${
-                    activeSection === item.id ? "text-indigo-400" : ""
-                  }`}
                   onClick={() => scrollToSection(item.id)}
+                  className={`px-2 py-2 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus-visible:outline-none focus:ring-0 focus:border-none ${
+                    activeSection === item.id
+                      ? "text-indigo-400"
+                      : "text-white hover:text-indigo-400"
+                  }`}
                 >
                   {item.label}
                 </button>
               ))}
             </div>
+
             <button
-              className="md:hidden text-white hover:text-indigo-400"
+              className="md:hidden text-white hover:text-indigo-400 focus:outline-none focus:ring-0 focus:border-none transition-colors duration-200"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
@@ -203,41 +196,62 @@ export default function Portfolio() {
               )}
             </button>
           </div>
-
-          <AnimatePresence>
-            {mobileMenuOpen && (
-              <motion.div
-                key="mobile-menu"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-                className="md:hidden border-t border-gray-800 pt-4 pb-4"
-              >
-                <div className="flex flex-col space-y-3">
-                  {navigationItems.map((item, index) => (
-                    <motion.button
-                      key={item.id}
-                      onClick={() => scrollToSection(item.id)}
-                      className={`text-white hover:text-indigo-400 ${
-                        activeSection === item.id ? "text-indigo-400" : ""
-                      }`}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -10 }}
-                      transition={{ delay: 0.05 * index, duration: 0.3 }}
-                    >
-                      {item.label}
-                    </motion.button>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </nav>
 
-      {/* Sections */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black/80 z-40 md:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+
+            <motion.div
+              className="mobile-menu-container fixed top-0 right-0 w-2/3 h-full bg-black z-50 flex flex-col justify-center items-center shadow-lg"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+            >
+              <button
+                className="absolute top-6 right-6 text-gray-400 hover:text-white focus:outline-none"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <X className="w-6 h-6" />
+              </button>
+              <div className="flex flex-col space-y-8">
+                {navigationItems.map((item, index) => (
+                  <motion.button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`text-xl font-medium transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-0 focus:border-none ${
+                      activeSection === item.id
+                        ? "text-indigo-400"
+                        : "text-white hover:text-indigo-400"
+                    }`}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{
+                      delay: 0.05 * index,
+                      duration: 0.25,
+                      ease: "easeOut",
+                    }}
+                  >
+                    {item.label}
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
       <HeroSection scrollToSection={scrollToSection} />
       <AboutSection />
       <ExperienceSection />
@@ -245,7 +259,6 @@ export default function Portfolio() {
       <ProjectsSection />
       <ContactSection />
 
-      {/* Footer */}
       <footer className="relative py-6 sm:py-8 px-4 sm:px-6 border-t border-gray-800 text-center text-gray-400">
         <p className="text-sm sm:text-base">
           &copy; 2025 Sheraz Waseem. All rights reserved.

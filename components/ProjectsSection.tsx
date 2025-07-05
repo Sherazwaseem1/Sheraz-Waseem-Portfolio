@@ -141,7 +141,7 @@ function ProjectCard({
           <Button
             size="sm"
             onClick={() => window.open(githubUrl, "_blank")}
-            className="bg-white text-black border border-gray-300 transform transition-all duration-300 hover:scale-110 hover:bg-blue-500 hover:text-white"
+            className="bg-white text-black border border-gray-300 transform transition-all duration-300 hover:scale-110 hover:bg-[#24292e] hover:text-white"
           >
             <Github className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
             Code
@@ -194,6 +194,24 @@ const projects: Project[] = [
     technologies: ["PyTorch", "ViT", "Swin-T", "SE Module", "OASIS", "MRI"],
     githubUrl: "https://github.com/Sherazwaseem1/Alzheimer-Classification",
     imageUrl: "/Alzheimer_Pic.png",
+  },
+  {
+    title: "Urdu News Article Classifier",
+    type: "ai-ml",
+    description:
+      "Articles from top Urdu news sites were scraped, cleaned, tokenized using GPT-2 Urdu tokenizer, and classified into 5 categories using Logistic Regression, Multinomial Naive Bayes, and a Fully Connected Neural Network. The FCNN achieved the highest accuracy of 96.58%.",
+    technologies: [
+      "Python",
+      "NumPy",
+      "Pandas",
+      "Scikit-learn",
+      "PyTorch",
+      "FCNN",
+      "Naive Bayes",
+      "Logistic Regression",
+    ],
+    githubUrl: "https://github.com/Sherazwaseem1/urdu-news-classifier", // Replace with actual repo if available
+    imageUrl: "/UrduArticles-Pic.png", // Replace with your project image
   },
   {
     title: "Fleet Management & Reimbursement System",
@@ -258,23 +276,5 @@ const projects: Project[] = [
     githubUrl: "https://github.com/Sherazwaseem1/foodsync",
     liveUrl: "https://food-sync.vercel.app/",
     imageUrl: "/FoodSync_Pic.png",
-  },
-  {
-    title: "Urdu News Article Classifier",
-    type: "ai-ml",
-    description:
-      "A multiclass text classification system for Urdu news articles using custom machine learning models. Articles from top Urdu news sites were scraped, cleaned, tokenized using GPT-2 Urdu tokenizer, and classified into 5 categories using Logistic Regression, Multinomial Naive Bayes, and a Fully Connected Neural Network. The FCNN achieved the highest accuracy of 96.58%.",
-    technologies: [
-      "Python",
-      "NumPy",
-      "Pandas",
-      "Scikit-learn",
-      "PyTorch",
-      "FCNN",
-      "Naive Bayes",
-      "Logistic Regression",
-    ],
-    githubUrl: "https://github.com/Sherazwaseem1/urdu-news-classifier", // Replace with actual repo if available
-    imageUrl: "/UrduArticles-Pic.png", // Replace with your project image
   },
 ];
