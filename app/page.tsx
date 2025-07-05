@@ -39,7 +39,7 @@ function GlobalStarsBackground() {
 
   const particles = useMemo(() => {
     const temp = [];
-    for (let i = 0; i < 5000; i++) {
+    for (let i = 0; i < 2000; i++) {
       const x = (Math.random() - 0.5) * 100;
       const y = (Math.random() - 0.5) * 100;
       const z = (Math.random() - 0.5) * 100;
@@ -79,14 +79,7 @@ export default function Portfolio() {
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
-      const sections = [
-        "home",
-        "about",
-        "experience",
-        "skills",
-        "projects",
-        "contact",
-      ];
+      const sections = ["home", "about", "experience", "skills", "projects", "contact"];
       const currentSection = sections.find((section) => {
         const element = document.getElementById(section);
         if (element) {
@@ -104,10 +97,7 @@ export default function Portfolio() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        mobileMenuOpen &&
-        !(event.target as Element).closest(".mobile-menu-container")
-      ) {
+      if (mobileMenuOpen && !(event.target as Element).closest(".mobile-menu-container")) {
         setMobileMenuOpen(false);
       }
     };
@@ -150,10 +140,7 @@ export default function Portfolio() {
           exit={{ opacity: 0 }}
           transition={{ duration: 1 }}
         >
-          <Canvas
-            camera={{ position: [0, 0, 1] }}
-            gl={{ preserveDrawingBuffer: true }}
-          >
+          <Canvas camera={{ position: [0, 0, 1] }} gl={{ preserveDrawingBuffer: true }}>
             <GlobalStarsBackground />
           </Canvas>
         </motion.div>
@@ -189,11 +176,7 @@ export default function Portfolio() {
               className="md:hidden text-white hover:text-indigo-400 focus:outline-none focus:ring-0 focus:border-none transition-colors duration-200"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
@@ -260,9 +243,7 @@ export default function Portfolio() {
       <ContactSection />
 
       <footer className="relative py-6 sm:py-8 px-4 sm:px-6 border-t border-gray-800 text-center text-gray-400">
-        <p className="text-sm sm:text-base">
-          &copy; 2025 Sheraz Waseem. All rights reserved.
-        </p>
+        <p className="text-sm sm:text-base">&copy; 2025 Sheraz Waseem. All rights reserved.</p>
       </footer>
     </div>
   );

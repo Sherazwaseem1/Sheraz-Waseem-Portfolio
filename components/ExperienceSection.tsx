@@ -155,7 +155,7 @@ const experiences: Experience[] = [
       "Firebase",
       "Redux",
     ],
-    logo: "/NETSOL_Tech2.png",
+    logo: "/NETSOl_Tech2.png",
   },
   {
     title: "MIS Intern",
