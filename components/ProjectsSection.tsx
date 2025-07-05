@@ -183,8 +183,9 @@ const projects: Project[] = [
     description:
       "Swin Transformer + Faster R-CNN experts for satellite, indoor, and outdoor fire detection. Uses self-attention gating and Weighted Box Fusion.",
     technologies: ["PyTorch", "Faster R-CNN", "Swin-T", "WBF", "CNN", "YOLO"],
-    githubUrl: "https://github.com/Sherazwaseem1/Forest-Fire-Detection",
+    githubUrl: "https://github.com/Sherazwaseem1/moe-fire-detection",
     imageUrl: "/Fire_detection_pic.png",
+    liveUrl: "https://moe-fire-detection-mgxc8wzgchajjkobm6go5q.streamlit.app/",  
   },
   {
     title: "Alzheimer's MRI Classification",
@@ -192,7 +193,7 @@ const projects: Project[] = [
     description:
       "Dementia classification using Swin Transformers and Enhanced SE Modules. Worked on OASIS-2 dataset for 4-class severity detection.",
     technologies: ["PyTorch", "ViT", "Swin-T", "SE Module", "OASIS", "MRI"],
-    githubUrl: "https://github.com/Sherazwaseem1/Alzheimer-Classification",
+    githubUrl: "https://github.com/Sherazwaseem1/Alzheimer-Detection-SE",
     imageUrl: "/Alzheimer_Pic.png",
   },
   {
@@ -210,7 +211,7 @@ const projects: Project[] = [
       "Naive Bayes",
       "Logistic Regression",
     ],
-    githubUrl: "https://github.com/Sherazwaseem1/urdu-news-classifier", // Replace with actual repo if available
+    githubUrl: "https://github.com/Sherazwaseem1/Urdu-Articles-Classification", // Replace with actual repo if available
     imageUrl: "/UrduArticles-Pic.png", // Replace with your project image
   },
   {
@@ -219,8 +220,8 @@ const projects: Project[] = [
     description:
       "End-to-end React Native + Node.js system with AWB Labeling, Firebase Cloudinary uploads, and AI-based expense prediction.",
     technologies: ["React Native", "Node.js", "MongoDB", "Cloudinary", "AI"],
-    githubUrl: "https://github.com/Sherazwaseem1/fleet-management",
-    imageUrl: "/FleetManagement_pic.png",
+    githubUrl: "https://github.com/Sherazwaseem1/Rigor_SE_Project",
+    imageUrl: "/Rigor_pic3.png",
   },
   {
     title: "Real Estate Management System",
@@ -228,8 +229,36 @@ const projects: Project[] = [
     description:
       "Internship project using React + FastAPI. CRUD listings, Redux state, PostgreSQL DB, and Firebase for media uploads.",
     technologies: ["React", "FastAPI", "Redux", "PostgreSQL", "Firebase"],
-    githubUrl: "https://github.com/Sherazwaseem1/real-estate",
+    githubUrl: "https://github.com/Sherazwaseem1/EstateHub",
     imageUrl: "/EstateHub_pic.png",
+  },
+  {
+    title: "FoodSync - Local Food Donation Platform",
+    type: "web",
+    description:
+      "A full-stack MERN application enabling restaurants to donate excess food to nearby NGOs and shelters. Built with React and Tailwind CSS for a responsive UI, and Node.js with MongoDB for scalable data handling.",
+    technologies: ["React.js", "Tailwind CSS", "Node.js", "Express", "MongoDB"],
+    githubUrl: "https://github.com/Sherazwaseem1/FoodSync",
+    liveUrl: "https://food-sync.vercel.app/",
+    imageUrl: "/FoodSync_Pic.png",
+  },
+  {
+    title: "ColorGrid - Multiplayer Color Conquest",
+    type: "web",
+    description:
+      "A real-time 2-player color conquest game built with React, Node, and Socket.IO. Players take turns filling a 5x5 grid, aiming to form the largest connected island of their color.",
+    technologies: ["React.js", "CSS", "Socket.IO", "Express", "Node.js"],
+    githubUrl: "https://github.com/Sherazwaseem1/ColorGrid-Game",
+    imageUrl: "/Colorgrid_pic_2.png",
+  },
+  {
+    title: "Taskify - ToDo App",
+    type: "web",
+    description:
+      "A clean and responsive ToDo list application built using React.js and Tailwind CSS. Allows users to add, manage, and delete tasks with a sleek UI and local state management.",
+    technologies: ["React.js", "Tailwind CSS", "JavaScript"],
+    githubUrl: "https://github.com/Sherazwaseem1/Taskify",
+    imageUrl: "/Todolist_pic.png",
   },
   {
     title: "Spotify Clone",
@@ -237,7 +266,7 @@ const projects: Project[] = [
     description:
       "A responsive Spotify web clone built using HTML, CSS, and JavaScript. Includes features like dynamic song play/pause, seek bar, and real-time UI updates.",
     technologies: ["HTML", "CSS", "JavaScript"],
-    githubUrl: "https://github.com/Sherazwaseem1/real-estate",
+    githubUrl: "https://github.com/Sherazwaseem1/Spotify-clone",
     imageUrl: "/spotify_pic.png",
   },
   {
@@ -246,35 +275,7 @@ const projects: Project[] = [
     description:
       "A gym website built with Express.js and Pug templating engine. Includes pages for membership plans, contact forms, and class schedules with clean responsive UI.",
     technologies: ["Express.js", "Pug", "Node.js", "HTML", "CSS"],
-    githubUrl: "https://github.com/Sherazwaseem1/gym-website",
+    githubUrl: "https://github.com/Sherazwaseem1/Gym-Website",
     imageUrl: "/gym_pic.png",
-  },
-  {
-    title: "Taskify - ToDo App",
-    type: "web",
-    description:
-      "A clean and responsive ToDo list application built using React.js and Tailwind CSS. Allows users to add, manage, and delete tasks with a sleek UI and local state management.",
-    technologies: ["React.js", "Tailwind CSS", "JavaScript"],
-    githubUrl: "https://github.com/Sherazwaseem1/taskify",
-    imageUrl: "/Todolist_pic.png",
-  },
-  {
-    title: "ColorGrid - Multiplayer Color Conquest",
-    type: "web",
-    description:
-      "A real-time 2-player color conquest game built with React, Node, and Socket.IO. Players take turns filling a 5x5 grid, aiming to form the largest connected island of their color.",
-    technologies: ["React.js", "CSS", "Socket.IO", "Express", "Node.js"],
-    githubUrl: "https://github.com/Sherazwaseem1/colorgrid",
-    imageUrl: "/Colorgrid_pic_2.png",
-  },
-  {
-    title: "FoodSync - Local Food Donation Platform",
-    type: "web",
-    description:
-      "A full-stack MERN application enabling restaurants to donate excess food to nearby NGOs and shelters. Built with React and Tailwind CSS for a responsive UI, and Node.js with MongoDB for scalable data handling.",
-    technologies: ["React.js", "Tailwind CSS", "Node.js", "Express", "MongoDB"],
-    githubUrl: "https://github.com/Sherazwaseem1/foodsync",
-    liveUrl: "https://food-sync.vercel.app/",
-    imageUrl: "/FoodSync_Pic.png",
   },
 ];
