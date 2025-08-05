@@ -181,17 +181,17 @@ const projects: Project[] = [
     title: "Forest Fire Detection",
     type: "ai-ml",
     description:
-      "Swin Transformer + Faster R-CNN experts for satellite, indoor, and outdoor fire detection. Uses self-attention gating and Weighted Box Fusion.",
+      "Forest fire detection using a custom object detection pipeline with Swin Transformer backbone, Mixture of Experts, FPN, and YOLO-format data. Trained on satellite, indoor, and outdoor imagery with validation logic and bounding box visualization.",
     technologies: ["PyTorch", "Faster R-CNN", "Swin-T", "WBF", "CNN", "YOLO"],
     githubUrl: "https://github.com/Sherazwaseem1/moe-fire-detection",
     imageUrl: "/Fire_detection_pic.png",
-    liveUrl: "https://moe-fire-detection-mgxc8wzgchajjkobm6go5q.streamlit.app/",  
+    liveUrl: "https://moe-fire-detection-mgxc8wzgchajjkobm6go5q.streamlit.app/",
   },
   {
     title: "Alzheimer's MRI Classification",
     type: "ai-ml",
     description:
-      "Dementia classification using Swin Transformers and Enhanced SE Modules. Worked on OASIS-2 dataset for 4-class severity detection.",
+      "Developed a deep learning pipeline for classifying Alzheimer's disease severity into four stages (Non-Demented, Very Mild, Mild, Demented) using the OASIS-2 brain MRI dataset. Employed Swin Transformer as the backbone for feature extraction, integrated with Enhanced Squeeze-and-Excitation (SE) modules to emphasize important regions.",
     technologies: ["PyTorch", "ViT", "Swin-T", "SE Module", "OASIS", "MRI"],
     githubUrl: "https://github.com/Sherazwaseem1/Alzheimer-Detection-SE",
     imageUrl: "/Alzheimer_Pic.png",
@@ -211,23 +211,40 @@ const projects: Project[] = [
       "Naive Bayes",
       "Logistic Regression",
     ],
-    githubUrl: "https://github.com/Sherazwaseem1/Urdu-Articles-Classification", // Replace with actual repo if available
-    imageUrl: "/UrduArticles-Pic.png", // Replace with your project image
+    githubUrl: "https://github.com/Sherazwaseem1/Urdu-Articles-Classification",
+    imageUrl: "/UrduArticles-Pic.png",
   },
   {
     title: "Fleet Management & Reimbursement System",
     type: "web",
     description:
-      "End-to-end React Native + Node.js system with AWB Labeling, Firebase Cloudinary uploads, and AI-based expense prediction.",
+      "Full-stack React Native + Node.js system for trip logging, AWB label generation via iMile API, AI-based expense prediction, and Cloudinary-backed receipt uploads. Includes role-based dashboards for admins and truckers.",
     technologies: ["React Native", "Node.js", "MongoDB", "Cloudinary", "AI"],
     githubUrl: "https://github.com/Sherazwaseem1/Rigor_SE_Project",
     imageUrl: "/Rigor_pic3.png",
   },
   {
+    title: "Course Registration System",
+    type: "web",
+    description:
+      "A full-stack web application for managing course registration. Built with Spring Boot, it features JWT authentication, role-based access for students and instructors, and RESTful APIs for course enrollment, creation, and instructor-student management.",
+    technologies: [
+      "Java",
+      "Spring Boot",
+      "MySQL",
+      "JWT",
+      "Next.js",
+      "Tailwind CSS",
+      "Axios",
+    ],
+    githubUrl: "https://github.com/Sherazwaseem1/Course-Registration-System", 
+    imageUrl: "/Course_reg_pic2.png", 
+  },
+  {
     title: "Real Estate Management System",
     type: "web",
     description:
-      "Internship project using React + FastAPI. CRUD listings, Redux state, PostgreSQL DB, and Firebase for media uploads.",
+      "Full-stack React + FastAPI platform for property listings with CRUD functionality, Redux-managed state, PostgreSQL database, and Firebase integration for image uploads. Built during internship at NETSOL.",
     technologies: ["React", "FastAPI", "Redux", "PostgreSQL", "Firebase"],
     githubUrl: "https://github.com/Sherazwaseem1/EstateHub",
     imageUrl: "/EstateHub_pic.png",

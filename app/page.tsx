@@ -79,7 +79,14 @@ export default function Portfolio() {
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
-      const sections = ["home", "about", "experience", "skills", "projects", "contact"];
+      const sections = [
+        "home",
+        "about",
+        "experience",
+        "skills",
+        "projects",
+        "contact",
+      ];
       const currentSection = sections.find((section) => {
         const element = document.getElementById(section);
         if (element) {
@@ -97,7 +104,10 @@ export default function Portfolio() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (mobileMenuOpen && !(event.target as Element).closest(".mobile-menu-container")) {
+      if (
+        mobileMenuOpen &&
+        !(event.target as Element).closest(".mobile-menu-container")
+      ) {
         setMobileMenuOpen(false);
       }
     };
@@ -140,7 +150,10 @@ export default function Portfolio() {
           exit={{ opacity: 0 }}
           transition={{ duration: 1 }}
         >
-          <Canvas camera={{ position: [0, 0, 1] }} gl={{ preserveDrawingBuffer: true }}>
+          <Canvas
+            camera={{ position: [0, 0, 1] }}
+            gl={{ preserveDrawingBuffer: true }}
+          >
             <GlobalStarsBackground />
           </Canvas>
         </motion.div>
@@ -149,13 +162,22 @@ export default function Portfolio() {
       <nav className="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-gray-800">
         <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex justify-between items-center">
+            {/* Left Side: Image + Name */}
             <div
-              className="text-xl sm:text-2xl font-bold text-indigo-400 cursor-pointer hover:text-indigo-300"
+              className="flex items-center space-x-3 cursor-pointer"
               onClick={() => scrollToSection("home")}
             >
-              Sheraz Waseem
+              <img
+                src="/Sheraz_Tab_Pic.jpg" // Change this path to your image file
+                alt="Sheraz Waseem"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-indigo-400 shadow-md hover:scale-105 transition-transform duration-300"
+              />
+              <span className="text-xl sm:text-2xl font-bold text-indigo-400 hover:text-indigo-300">
+                Sheraz Waseem
+              </span>
             </div>
 
+            {/* Center Nav Links */}
             <div className="hidden md:flex space-x-6 lg:space-x-8">
               {navigationItems.map((item) => (
                 <button
@@ -172,11 +194,16 @@ export default function Portfolio() {
               ))}
             </div>
 
+            {/* Mobile Menu Toggle */}
             <button
               className="md:hidden text-white hover:text-indigo-400 focus:outline-none focus:ring-0 focus:border-none transition-colors duration-200"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -243,7 +270,9 @@ export default function Portfolio() {
       <ContactSection />
 
       <footer className="relative py-6 sm:py-8 px-4 sm:px-6 border-t border-gray-800 text-center text-gray-400">
-        <p className="text-sm sm:text-base">&copy; 2025 Sheraz Waseem. All rights reserved.</p>
+        <p className="text-sm sm:text-base">
+          &copy; 2025 Sheraz Waseem. All rights reserved.
+        </p>
       </footer>
     </div>
   );

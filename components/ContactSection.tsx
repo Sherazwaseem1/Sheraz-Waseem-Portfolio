@@ -15,6 +15,7 @@ import * as THREE from "three";
 import { useMemo, useRef, useState } from "react";
 import emailjs from "emailjs-com";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 function ContactBackground() {
   const systemRef = useRef<THREE.Group>(null);
@@ -145,7 +146,7 @@ export default function ContactSection() {
         </Canvas>
       </div>
       <div className="relative z-20 container mx-auto max-w-4xl">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-6 sm:mb-8 bg-gradient-to-r from-purple-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent">
+        <h2 className="text-3xl sm:text-4xl pb-2 font-bold text-center mb-6 sm:mb-8 bg-gradient-to-r from-purple-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent">
           Let's Work Together
         </h2>
         <p className="text-lg sm:text-xl text-center mb-8 sm:mb-12 bg-gradient-to-r from-gray-300 via-indigo-200 to-violet-200 bg-clip-text text-transparent px-4">
@@ -215,6 +216,20 @@ export default function ContactSection() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <Button
+                  type="button"
+                  onClick={handleWhatsAppClick}
+                  className="w-full bg-green-600 hover:bg-green-700 text-white transform hover:scale-105 transition-all duration-500"
+                >
+                  <Image
+                    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                    alt="WhatsApp"
+                    width={16}
+                    height={16}
+                    className="mr-2"
+                  />
+                  Start WhatsApp Chat
+                </Button>
+                <Button
                   className="w-full bg-[#24292f] hover:bg-[#1b1f23] text-white transform hover:scale-105 transition-all duration-500"
                   onClick={() =>
                     window.open("https://github.com/Sherazwaseem1", "_blank")
@@ -234,14 +249,6 @@ export default function ContactSection() {
                 >
                   <Linkedin className="w-4 h-4 mr-2" />
                   LinkedIn Profile
-                </Button>
-                <Button
-                  type="button"
-                  onClick={handleWhatsAppClick}
-                  className="w-full bg-green-600 hover:bg-green-700 text-white transform hover:scale-105 transition-all duration-500"
-                >
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  Start WhatsApp Chat
                 </Button>
               </CardContent>
             </Card>
