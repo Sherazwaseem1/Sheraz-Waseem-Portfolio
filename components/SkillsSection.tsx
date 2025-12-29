@@ -80,7 +80,6 @@ const skills = {
       logo: "pytorch/pytorch-original.svg",
       color: "bg-orange-50",
     },
-    { name: "Keras", logo: "keras/keras-original.svg", color: "bg-pink-50" },
     {
       name: "TensorFlow",
       logo: "tensorflow/tensorflow-original.svg",
@@ -97,11 +96,6 @@ const skills = {
       color: "bg-green-50",
     },
     {
-      name: "NLP",
-      logo: "pytorch/pytorch-original.svg",
-      color: "bg-violet-100",
-    },
-    {
       name: "Computer Vision",
       logo: "opencv/opencv-original.svg",
       color: "bg-indigo-200",
@@ -111,11 +105,20 @@ const skills = {
       logo: "tensorflow/tensorflow-original.svg",
       color: "bg-pink-100",
     },
+
+    // 🔹 LLM Tooling
     {
-      name: "Data Analysis",
-      logo: "pandas/pandas-original.svg",
-      color: "bg-blue-100",
+      name: "LangChain",
+      logo: "/Langchain.png",
+      color: "bg-yellow-100",
     },
+    {
+      name: "LangGraph",
+      logo: "/Langchain.png",
+      color: "bg-amber-100",
+    },
+
+    // 🔹 Foundations
     {
       name: "Python",
       logo: "python/python-original.svg",

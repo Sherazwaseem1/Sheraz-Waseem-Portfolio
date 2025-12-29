@@ -19,17 +19,17 @@ interface Project {
   githubUrl: string;
   liveUrl?: string;
   imageUrl: string;
-  type: "web" | "ai-ml";
+  type: "dev" | "ai-ml";
 }
 
 const projectTypes = [
   { label: "All Projects", value: "all" },
-  { label: "Web Development", value: "web" },
+  { label: "Development", value: "dev" },
   { label: "AI / ML", value: "ai-ml" },
 ];
 
 export default function ProjectsSection() {
-  const [selectedType, setSelectedType] = useState<"all" | "web" | "ai-ml">(
+  const [selectedType, setSelectedType] = useState<"all" | "dev" | "ai-ml">(
     "all"
   );
 
@@ -56,7 +56,7 @@ export default function ProjectsSection() {
               <button
                 key={value}
                 onClick={() =>
-                  setSelectedType(value as "all" | "web" | "ai-ml")
+                  setSelectedType(value as "all" | "dev" | "ai-ml")
                 }
                 className={`px-4 py-2 rounded-md text-sm sm:text-base font-medium transition-all duration-300 transform
                   ${
@@ -163,12 +163,12 @@ function ProjectCard({
         <div className="flex justify-end">
           <Badge
             className={`text-xs px-2 py-0.5 rounded-full ${
-              type === "web"
+              type === "dev"
                 ? "bg-blue-500 text-white"
                 : "bg-purple-600 text-white"
             }`}
           >
-            {type === "web" ? "Web Dev" : "AI / ML"}
+            {type === "dev" ? "Devlopment" : "AI / ML"}
           </Badge>
         </div>
       </CardContent>
@@ -186,6 +186,20 @@ const projects: Project[] = [
     githubUrl: "https://github.com/Sherazwaseem1/moe-fire-detection",
     imageUrl: "/Fire_detection_pic.png",
     liveUrl: "https://moe-fire-detection-mgxc8wzgchajjkobm6go5q.streamlit.app/",
+  },
+  {
+    title: "Multimodal Fact Checking",
+    type: "ai-ml",
+    description:
+      "Intent-based multimodal fact-checking system for political content using a modular, agent-based LLM framework. The pipeline jointly reasons over text and images, retrieves external evidence via web search, and evaluates claim credibility while preserving rhetorical and persuasive intent.",
+    technologies: [
+      "Large Language Models",
+      "Multimodal AI",
+      "Agent-Based Systems",
+      "Fact Checking",
+    ],
+    githubUrl: "https://github.com/PianoTriesCode/Multi-modal-Fact-checking",
+    imageUrl: "/MultiModal.png",
   },
   {
     title: "Alzheimer's MRI Classification",
@@ -216,7 +230,7 @@ const projects: Project[] = [
   },
   {
     title: "Fleet Management & Reimbursement System",
-    type: "web",
+    type: "dev",
     description:
       "Full-stack React Native + Node.js system for trip logging, AWB label generation via iMile API, AI-based expense prediction, and Cloudinary-backed receipt uploads. Includes role-based dashboards for admins and truckers.",
     technologies: ["React Native", "Node.js", "MongoDB", "Cloudinary", "AI"],
@@ -225,7 +239,7 @@ const projects: Project[] = [
   },
   {
     title: "Course Registration System",
-    type: "web",
+    type: "dev",
     description:
       "A full-stack web application for managing course registration. Built with Spring Boot, it features JWT authentication, role-based access for students and instructors, and RESTful APIs for course enrollment, creation, and instructor-student management.",
     technologies: [
@@ -237,12 +251,12 @@ const projects: Project[] = [
       "Tailwind CSS",
       "Axios",
     ],
-    githubUrl: "https://github.com/Sherazwaseem1/Course-Registration-System", 
-    imageUrl: "/Course_reg_pic2.png", 
+    githubUrl: "https://github.com/Sherazwaseem1/Course-Registration-System",
+    imageUrl: "/Course_reg_pic2.png",
   },
   {
     title: "Real Estate Management System",
-    type: "web",
+    type: "dev",
     description:
       "Full-stack React + FastAPI platform for property listings with CRUD functionality, Redux-managed state, PostgreSQL database, and Firebase integration for image uploads. Built during internship at NETSOL.",
     technologies: ["React", "FastAPI", "Redux", "PostgreSQL", "Firebase"],
@@ -251,7 +265,7 @@ const projects: Project[] = [
   },
   {
     title: "FoodSync - Local Food Donation Platform",
-    type: "web",
+    type: "dev",
     description:
       "A full-stack MERN application enabling restaurants to donate excess food to nearby NGOs and shelters. Built with React and Tailwind CSS for a responsive UI, and Node.js with MongoDB for scalable data handling.",
     technologies: ["React.js", "Tailwind CSS", "Node.js", "Express", "MongoDB"],
@@ -261,7 +275,7 @@ const projects: Project[] = [
   },
   {
     title: "ColorGrid - Multiplayer Color Conquest",
-    type: "web",
+    type: "dev",
     description:
       "A real-time 2-player color conquest game built with React, Node, and Socket.IO. Players take turns filling a 5x5 grid, aiming to form the largest connected island of their color.",
     technologies: ["React.js", "CSS", "Socket.IO", "Express", "Node.js"],
@@ -270,7 +284,7 @@ const projects: Project[] = [
   },
   {
     title: "Taskify - ToDo App",
-    type: "web",
+    type: "dev",
     description:
       "A clean and responsive ToDo list application built using React.js and Tailwind CSS. Allows users to add, manage, and delete tasks with a sleek UI and local state management.",
     technologies: ["React.js", "Tailwind CSS", "JavaScript"],
@@ -279,7 +293,7 @@ const projects: Project[] = [
   },
   {
     title: "Spotify Clone",
-    type: "web",
+    type: "dev",
     description:
       "A responsive Spotify web clone built using HTML, CSS, and JavaScript. Includes features like dynamic song play/pause, seek bar, and real-time UI updates.",
     technologies: ["HTML", "CSS", "JavaScript"],
@@ -288,7 +302,7 @@ const projects: Project[] = [
   },
   {
     title: "Gym Website",
-    type: "web",
+    type: "dev",
     description:
       "A gym website built with Express.js and Pug templating engine. Includes pages for membership plans, contact forms, and class schedules with clean responsive UI.",
     technologies: ["Express.js", "Pug", "Node.js", "HTML", "CSS"],

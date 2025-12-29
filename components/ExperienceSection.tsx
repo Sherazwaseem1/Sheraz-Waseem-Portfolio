@@ -124,6 +124,23 @@ const experiences: Experience[] = [
     logo: "/Parcel2Ship_Logo.png",
   },
   {
+    title: "Research Assistant",
+    company: "LUMS - Computer Vision & Graphics Lab",
+    period: "Mar 2025 - Present",
+    location: "Lahore, Pakistan",
+    description:
+      "Conducting research in computer vision and deep learning at the Computer Vision & Graphics Lab, LUMS. Working on Transformer-based models for two core projects: Forest Fire Detection using Mixture of Experts (MoE) architectures with Swin Transformer and YOLOv8 to improve cross-domain generalization across satellite, indoor, and outdoor imagery; and Alzheimer’s MRI Slice Classification using Swin Transformer with Enhanced Squeeze-and-Excitation (SE) modules for multi-class disease stage prediction from the OASIS-2 dataset. Involved in data preprocessing, model training, evaluation, and optimization in PyTorch, with ongoing work towards a research paper submission.",
+    technologies: [
+      "PyTorch",
+      "Swin Transformer",
+      "YOLOv8",
+      "Mixture of Experts",
+      "Vision Transformers",
+      "Computer Vision",
+    ],
+    logo: "/LUMS_Logo.jpg",
+  },
+  {
     title: "Software Engineer Intern",
     company: "Systems Limited",
     period: "Jul 2025 - Aug 2025",
